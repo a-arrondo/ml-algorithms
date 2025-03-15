@@ -2,6 +2,7 @@
 This repository aims to manually build some of the most popular machine learning techniques.
 
 ## Folder Structure
+```
 .
 |-- implementations
 |	|-- dim\_reduction
@@ -13,4 +14,5 @@ This repository aims to manually build some of the most popular machine learning
 |	|-- regression
 |	|	|-- linear\_regression
 |	|	|-- logistic\_regression
+```
 
