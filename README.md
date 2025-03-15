@@ -4,15 +4,16 @@ This repository aims to manually build some of the most popular machine learning
 ## Folder Structure
 ```
 .
-|-- implementations
-|	|-- dim_reduction
-|	|-- regression
-|	|	|-- linear_regression
-|	|	|-- logistic_regression
-|-- use\_cases
-|	|-- dim_reduction
-|	|-- regression
-|	|	|-- linear_regression
-|	|	|-- logistic_regression
+├── implementations
+├	├── dim_reduction
+├	├── regression
+├	├	├── linear_regression
+├	├	├── logistic_regression
+├── use_cases
+├	├── dim_reduction
+├	├── regression
+├	├	├── linear_regression
+├	├	├── logistic_regression
+
 ```
 
