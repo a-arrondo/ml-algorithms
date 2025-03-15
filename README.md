@@ -5,6 +5,10 @@ This repository aims to manually build some of the most popular machine learning
 - implementations
 	- dim\_reduction
 	- regression
+		- linear_regression
+		- logistic_regression
 - use\_cases
 	- dim\_reduction
 	- regression
+		- linear_regression
+		- logistic_regression
