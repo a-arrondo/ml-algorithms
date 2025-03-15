@@ -5,14 +5,14 @@ This repository aims to manually build some of the most popular machine learning
 ```
 .
 |-- implementations
-|	|-- dim\_reduction
+|	|-- dim_reduction
 |	|-- regression
-|	|	|-- linear\_regression
-|	|	|-- logistic\_regression
+|	|	|-- linear_regression
+|	|	|-- logistic_regression
 |-- use\_cases
-|	|-- dim\_reduction
+|	|-- dim_reduction
 |	|-- regression
-|	|	|-- linear\_regression
-|	|	|-- logistic\_regression
+|	|	|-- linear_regression
+|	|	|-- logistic_regression
 ```
 
