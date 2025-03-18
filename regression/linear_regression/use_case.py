@@ -35,6 +35,3 @@ plt.ylabel("Salary")
 
 plt.show()
 
-# sns.scatterplot(data=salaries, x="Experience Years", y="Salary")
-# plt.show()
-
