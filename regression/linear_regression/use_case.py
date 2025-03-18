@@ -2,36 +2,56 @@
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import seaborn.objects as so
 import matplotlib.pyplot as plt
 from linear_regression import LinearRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import root_mean_squared_error
 
+# DATA COLLECTION
 data_url = "https://raw.githubusercontent.com/YBI-Foundation/Dataset/refs/heads/main/Salary%20Data.csv"
+df = pd.read_csv(data_url)
 
-salaries = pd.read_csv(data_url)
+# DATA EXPLORATION
+print(f"# Dimensionality")
+print(f"({df.shape[0]}, {df.shape[1]})")
+print("\n# First 10 elements:")
+print(df.head(10))
+print("\n# Statistical summary")
+print(df.describe())
 
-X = salaries.loc[:, "Experience Years"]
-print(X.values)
-y = salaries.loc[:, "Salary"]
-print(y.values)
+YEAR_COL = df.columns[0]
+SALARY_COL = df.columns[1]
 
-print(salaries.head(10))
+X = df[YEAR_COL].values
+y = df[SALARY_COL].values
+
+# MODEL EVALUATION
+X_train, y_train, X_test, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=1)
 
 lm = LinearRegression()
-lm = lm.fit(X.values, y.values)
+lm = lm.fit(X_train, y_train)
+y_pred = lm.predict(X_test)
 
-print("PREDICTION")
-print(lm.predict(np.matrix(10)))
+rmse = root_mean_squared_error(y_test, y_pred)
 
-inp = np.matrix(np.linspace(np.min(X), np.max(X), num = salaries.shape[0])).T
-output = lm.predict(inp)
+print("\n# Prediction statistics")
+print(f"RMSE: {rmse}")
+# ?
+lm = LinearRegression()
+lm = lm.fit(X, y)
 
-sns.scatterplot(salaries, x="Experience Years", y="Salary")
-plt.plot(inp, output.T, color = "red")
+# DATA VISUALIZATION
+reg_inp = np.matrix(np.linspace(np.min(X), np.max(X),
+    num = df.shape[0])).T
+reg_out = lm.predict(reg_inp)
+
+sns.scatterplot(df, x=YEAR_COL, y=SALARY_COL)
+plt.plot(reg_inp, reg_out.T, color = "red")
 
 plt.title("Linear regression")
-plt.xlabel("Experience Years")
-plt.ylabel("Salary")
+plt.xlabel(YEAR_COL)
+plt.ylabel(SALARY_COL)
 
 plt.show()
 
