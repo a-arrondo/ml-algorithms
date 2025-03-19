@@ -2,7 +2,38 @@
 import numpy as np
 
 class LinearRegression():
+    """
+    A simple linear regression model implemented using NumPy.
+
+    ...
+
+    Attributes
+    ----------
+    coefs_ : numpy.ndarray
+        The coefficients of the linear regression model (including the intercept).
+        
+        The first element is the intercept, and the subsequent elements correspond
+        to the coefficients for the input features.
+    
+    Methods
+    -------
+    fit(X, y)
+        Computes the coefficients to fit the provided data.
+    predict(X)
+        Returns the predicted values of the given values.
+    fit_predict(X, y)
+        First, fits the model, and then returns the predictions of the training data.
+    get_intercept()
+        Returns the intercept of the linear model.
+    get_coefs()
+        Returns the coefficients of the linear model.
+
+    """
+
     def __init__(self):
+        """
+        Initializes the LinearRegression model.
+        """
         self.coefs_ = None
 
     def fit(self, X, y):
