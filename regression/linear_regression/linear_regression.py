@@ -3,9 +3,9 @@ import numpy as np
 
 class LinearRegression():
     def __init__(self):
-        self._coefs = None
+        self.coefs_ = None
 
-    def fit(self, X, y):
+   def fit(self, X, y):
         if not isinstance(X, np.ndarray):
             X = np.array(X)
         if not isinstance(y, np.ndarray):
@@ -21,7 +21,7 @@ class LinearRegression():
 
         X_squared = X.T @ X
         if np.linalg.det(X_squared) != 0:
-            self._coefs = np.linalg.inv(X_squared) @ X.T @ y
+            self.coefs_ = np.linalg.inv(X_squared) @ X.T @ y
         else:
             raise ValueError("Cannot compute the inverse of a singular matrix")
         return self
@@ -35,5 +35,11 @@ class LinearRegression():
         ones_col = np.ones(X.shape[0])
         X = np.column_stack((ones_col, X))
         
-        return X @ self._coefs
+        return X @ self.coefs_
+
+    def get_intercept(self):
+        return self.coefs_[1]
+
+    def get_coefs(self):
+        return self.coefs_[1:]
 

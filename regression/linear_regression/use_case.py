@@ -61,7 +61,7 @@ reg_out = lm.predict(reg_inp)
 sns.scatterplot(df, x=YEAR_COL, y=SALARY_COL, alpha=0.8, s = 50)
 plt.plot(reg_inp, reg_out.T, color = "red", alpha=0.8)
 
-equation = f"Salary = {lm._coefs[1]:.3f} * Experience + {lm._coefs[0]:.3f}"
+equation = f"Salary = {lm.get_coefs()[0]:.3f} * Experience + {lm.get_intercept():.3f}"
 plt.text(1, 120000, equation, fontsize=14, color="red")
 
 plt.title("Salary vs. Years of Experience:\n"
