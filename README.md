@@ -6,7 +6,6 @@ Each of which will be composed by the code implementation, some use case example
 
 ## Folder Structure
 
-```
  |--------|------------------|
  | **Symbol** | **Meaning**          |
  |--------|------------------|
@@ -14,6 +13,7 @@ Each of which will be composed by the code implementation, some use case example
  |   ⏳   | In Progress      |
  |   ⭕   | Empty            |
  |--------|------------------|
+```
 .
 ├── dim_reduction
 ├       ├── pca ⭕
