@@ -13,15 +13,11 @@ class LinearRegression():
         
         if X.ndim != 2:
             X = X.reshape((len(X), 1))
-#            raise ValueError("X must be a 2D array")
         if y.ndim != 1:
             raise ValueError("y must be a 1D array")
 
         ones_col = np.ones((X.shape[0]))
         X = np.column_stack((ones_col, X))
-
-        print(X)
-        print(y)
 
         X_squared = X.T @ X
         if np.linalg.det(X_squared) != 0:
