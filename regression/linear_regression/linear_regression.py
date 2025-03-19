@@ -5,7 +5,7 @@ class LinearRegression():
     def __init__(self):
         self.coefs_ = None
 
-   def fit(self, X, y):
+    def fit(self, X, y):
         if not isinstance(X, np.ndarray):
             X = np.array(X)
         if not isinstance(y, np.ndarray):
@@ -36,6 +36,10 @@ class LinearRegression():
         X = np.column_stack((ones_col, X))
         
         return X @ self.coefs_
+
+    def fit_predict(self, X, y):
+        self = self.fit(X, y)
+        return self.predict(X)
 
     def get_intercept(self):
         return self.coefs_[1]
