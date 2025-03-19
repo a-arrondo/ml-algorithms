@@ -5,7 +5,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from linear_regression import LinearRegression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, explained_variance_score, r2_score
+from sklearn.metrics import mean_absolute_error, mean_squared_error, \
+        explained_variance_score, r2_score
 
 # DATA COLLECTION
 data_url = "https://raw.githubusercontent.com/YBI-Foundation/Dataset/refs/heads/main/Salary%20Data.csv"
@@ -34,19 +35,24 @@ lm = lm.fit(X_train, y_train)
 print(X_test)
 y_pred = np.asarray(lm.predict(X_test))
 
+mae = mean_absolute_error(y_test, y_pred)
+mse = mean_squared_error(y_test, y_pred)
 rmse = mean_squared_error(y_test, y_pred, squared = False)
 exp_var = explained_variance_score(y_test, y_pred)
-r2 = r2_score(y_test, y_pred)
+r_squared = r2_score(y_test, y_pred)
+
 
 print("\n# Prediction statistics")
+print(f"\tMAE: {mae}")
+print(f"\tMSE: {mse}")
 print(f"\tRMSE: {rmse}")
 print(f"\tExplained variance: {exp_var}")
-print(f"\tR2 score: {r2}")
-# ?
+print(f"\tR2 score: {r_squared}")
+
+# DATA VISUALIZATION
 lm = LinearRegression()
 lm = lm.fit(X, y)
 
-# DATA VISUALIZATION
 reg_inp = np.array(np.linspace(np.min(X), np.max(X),
     num = df.shape[0]))
 reg_out = lm.predict(reg_inp)
