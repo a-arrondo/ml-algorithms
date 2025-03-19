@@ -5,12 +5,21 @@ Each of which will be composed by the code implementation, some use case example
 > ⚠️ **Warning:** This repository primarilly aims to idevelop machine learning algorithms from scratch. Therefore, the objective of the use cases is to show how to implement them, rather than to obtain the most performant one.
 
 ## Folder Structure
+
 ```
+ |--------|------------------|
+ | **Symbol** | **Meaning**          |
+ |--------|------------------|
+ |   ✅   | Finished         |
+ |   ⏳   | In Progress      |
+ |   ⭕   | Empty            |
+ |--------|------------------|
 .
 ├── dim_reduction
+├       ├── pca ⭕
 ├── regression
-├	├── linear_regression
-├	├── logistic_regression
+├	├── linear_regression ⏳ 
+├	├── logistic_regression ⭕
 
 ```
 
