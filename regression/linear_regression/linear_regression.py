@@ -31,6 +31,11 @@ class LinearRegression():
         return self
 
     def predict(self, X):
+        if not isinstance(X, np.ndarray):
+            X = np.array(X)
+        if X.ndim != 2:
+            X = X.reshape(len(X), 1)
+
         ones_col = np.ones(X.shape[0])
         X = np.column_stack((ones_col, X))
         
