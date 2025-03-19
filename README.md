@@ -6,13 +6,12 @@ Each of which will be composed by the code implementation, some use case example
 
 ## Folder Structure
 
- |--------|------------------|
  | **Symbol** | **Meaning**          |
  |--------|------------------|
  |   ✅   | Finished         |
  |   ⏳   | In Progress      |
  |   ⭕   | Empty            |
- |--------|------------------|
+
 ```
 .
 ├── dim_reduction
