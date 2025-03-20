@@ -35,8 +35,9 @@ class LinearRegression():
         Initializes the LinearRegression model.
         """
         self.coefs_ = None
+        self.l2_penalty_ = 0
 
-    def fit(self, X, y):
+    def fit(self, X, y, l2_penalty=0):
         if not isinstance(X, np.ndarray):
             X = np.array(X)
         if not isinstance(y, np.ndarray):
@@ -50,7 +51,8 @@ class LinearRegression():
         ones_col = np.ones((X.shape[0]))
         X = np.column_stack((ones_col, X))
 
-        X_squared = X.T @ X
+        self.l2_penalty_ = l2_penalty
+        X_squared = X.T @ X + l2_penalty * np.identity(X.shape[1]) 
         if np.linalg.det(X_squared) != 0:
             self.coefs_ = np.linalg.inv(X_squared) @ X.T @ y
         else:
@@ -68,8 +70,8 @@ class LinearRegression():
         
         return X @ self.coefs_
 
-    def fit_predict(self, X, y):
-        self = self.fit(X, y)
+    def fit_predict(self, X, y, l2_penalty=0):
+        self = self.fit(X, y, l2_penalty)
         return self.predict(X)
 
     def get_intercept(self):
