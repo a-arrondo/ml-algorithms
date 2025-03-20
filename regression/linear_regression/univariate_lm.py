@@ -56,6 +56,10 @@ TITLE_FW = "bold"
 LABEL_SIZE = 14
 MAIN_COLOR = "royalblue"
 SECOND_COLOR = "firebrick"
+THIRD_COLOR = "green"
+
+print("# Data visualization")
+print("\tFigure 1: dataset and prediction visualization.")
 
 lm = LinearRegression()
 lm = lm.fit(X, y)
@@ -77,33 +81,41 @@ ax1.set_title("Salary vs. Years of Experience:\n"
 
 ax1.set_xlabel(YEAR_COL, fontsize=LABEL_SIZE)
 ax1.set_ylabel(SALARY_COL, fontsize=LABEL_SIZE)
-print("# Data visualization")
 
 # RIDGE REGRESSION
+print("\tFigure 2: L2 penalty term's effect on RMSE.")
 l2_penaltys = [10**i for i in range(-4, 7)]
-data = data = np.zeros((len(l2_penaltys), 3))
+data = data = np.zeros((len(l2_penaltys), 4))
 for i, l2_penalty in enumerate(l2_penaltys):
     lm = LinearRegression().fit(X, y, l2_penalty=l2_penalty)
     y_pred = lm.predict(X)
     rmse = mean_squared_error(y, y_pred, squared = False)
-    data[i] = [l2_penalty, lm.coefs_[0], rmse]
+    data[i] = [l2_penalty, lm.coefs_[0], lm.coefs_[1], rmse]
 
-df = pd.DataFrame(data, columns=["l2_penalty", "coef", "r2"])
+df = pd.DataFrame(data, columns=["l2_penalty", "intercept", "coef", "r2"])
 
 fig2, ax2 = plt.subplots(1, 1)
 ax3 = ax2.twinx()
-ax2.plot(df["l2_penalty"], df["coef"], "o-", color=MAIN_COLOR)
-ax3.plot(df["l2_penalty"], df["r2"], "o-", color=SECOND_COLOR)
+ax2.plot(df["l2_penalty"], df["coef"], "o-",
+        color=MAIN_COLOR, label="Experience years coefficient")
+ax2.plot(df["l2_penalty"], df["intercept"], "o-",
+        color=THIRD_COLOR, label="Intercept")
+ax3.plot(df["l2_penalty"], df["r2"], "o--",
+        color=SECOND_COLOR, label="Root Mean Squared Error")
+
 ax2.set_xscale("log")
+
 ax2.set_title("Ridge Regression's influence on coefficients",
         fontweight=TITLE_FW, fontsize=TITLE_SIZE)
 ax2.set_xlabel("L2 penalty parameter (log)",
         fontsize=LABEL_SIZE)
 ax2.set_ylabel("Experience years coefficient",
-        fontsize=LABEL_SIZE, color = MAIN_COLOR)
-ax2.tick_params(axis="y", colors=MAIN_COLOR)
+        fontsize=LABEL_SIZE)
 
 ax3.set_ylabel("RMSE measure",
         fontsize=LABEL_SIZE, color = SECOND_COLOR)
 ax3.tick_params(axis="y", colors=SECOND_COLOR)
+
+ax2.legend(loc="center left")
+ax3.legend(loc="center right")
 plt.show()
