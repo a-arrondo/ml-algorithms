@@ -51,6 +51,12 @@ print(f"\tR2 score: {r_squared}")
 
 
 # DATA VISUALIZATION
+TITLE_SIZE = 15
+TITLE_FW = "bold"
+LABEL_SIZE = 14
+MAIN_COLOR = "royalblue"
+SECOND_COLOR = "firebrick"
+
 lm = LinearRegression()
 lm = lm.fit(X, y)
 
@@ -58,22 +64,46 @@ reg_inp = np.array(np.linspace(np.min(X), np.max(X),
     num = df.shape[0]))
 reg_out = lm.predict(reg_inp)
 
-sns.scatterplot(df, x=YEAR_COL, y=SALARY_COL, alpha=0.8, s = 50)
-plt.plot(reg_inp, reg_out.T, color = "red", alpha=0.8)
+fig1, ax1 = plt.subplots()
+ax1.scatter(df[YEAR_COL], df[SALARY_COL], alpha=0.8, s = 50)
+ax1.plot(reg_inp, reg_out.T, color = SECOND_COLOR, alpha=0.8)
 
 equation = f"Salary = {lm.get_coefs()[0]:.3f} * Experience + {lm.get_intercept():.3f}"
-plt.text(1, 120000, equation, fontsize=14, color="red")
+ax1.text(1, 120000, equation, fontsize=14, color=SECOND_COLOR)
 
-plt.title("Salary vs. Years of Experience:\n"
+ax1.set_title("Salary vs. Years of Experience:\n"
         "(Univariate Linear Regression)",
-        fontweight="bold", fontsize=15)
+        fontweight="bold", fontsize=TITLE_SIZE)
 
-plt.xlabel(YEAR_COL, fontsize=14)
-plt.ylabel(SALARY_COL, fontsize=14)
+ax1.set_xlabel(YEAR_COL, fontsize=LABEL_SIZE)
+ax1.set_ylabel(SALARY_COL, fontsize=LABEL_SIZE)
+print("# Data visualization")
 
+# RIDGE REGRESSION
+l2_penaltys = [10**i for i in range(-4, 7)]
+data = data = np.zeros((len(l2_penaltys), 3))
+for i, l2_penalty in enumerate(l2_penaltys):
+    lm = LinearRegression().fit(X, y, l2_penalty=l2_penalty)
+    y_pred = lm.predict(X)
+    rmse = mean_squared_error(y, y_pred, squared = False)
+    data[i] = [l2_penalty, lm.coefs_[0], rmse]
+
+df = pd.DataFrame(data, columns=["l2_penalty", "coef", "r2"])
+
+fig2, ax2 = plt.subplots(1, 1)
+ax3 = ax2.twinx()
+ax2.plot(df["l2_penalty"], df["coef"], "o-", color=MAIN_COLOR)
+ax3.plot(df["l2_penalty"], df["r2"], "o-", color=SECOND_COLOR)
+ax2.set_xscale("log")
+ax2.set_title("Ridge Regression's influence on coefficients",
+        fontweight=TITLE_FW, fontsize=TITLE_SIZE)
+ax2.set_xlabel("L2 penalty parameter (log)",
+        fontsize=LABEL_SIZE)
+ax2.set_ylabel("Experience years coefficient",
+        fontsize=LABEL_SIZE, color = MAIN_COLOR)
+ax2.tick_params(axis="y", colors=MAIN_COLOR)
+
+ax3.set_ylabel("RMSE measure",
+        fontsize=LABEL_SIZE, color = SECOND_COLOR)
+ax3.tick_params(axis="y", colors=SECOND_COLOR)
 plt.show()
-
-lm = LinearRegression()
-y_pred = lm.fit_predict(X, y)
-print(y_pred)
-
